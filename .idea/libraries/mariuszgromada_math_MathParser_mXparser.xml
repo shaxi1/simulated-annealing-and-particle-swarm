@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="mariuszgromada.math.MathParser.mXparser" type="repository">
+    <properties maven-id="org.mariuszgromada.math:MathParser.org-mXparser:5.1.0" />
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/mariuszgromada/math/MathParser.org-mXparser/5.1.0/MathParser.org-mXparser-5.1.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
