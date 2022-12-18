@@ -22,6 +22,7 @@ public class UserInputMathFunction {
     }
 
     /* example "x = 3" */
+    // TODO: check f(x) or f(x,y)
     public double getArgumentValue(String argument) {
         Argument x = new Argument(argument);
         Expression expression = new Expression("f(x)", f, x);

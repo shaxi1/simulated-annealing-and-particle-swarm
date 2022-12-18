@@ -55,6 +55,7 @@ public class PSO_Helper {
             if (complexFunctionIdx == 0)
                 return ((Math.random() * ((rastriginRange - (-rastriginRange)))) - rastriginRange);
         }
+
         return (( Math.random() * ( ( userRandomRange-(-userRandomRange) ) )) - userRandomRange);
     }
 

@@ -53,7 +53,7 @@ public class PSO {
 
         this.bestValue = helper.calculateFitness_Particle(best);
 
-        System.out.println(bestValue);
+        System.out.println("PSO result: " + bestValue);
         return best;
     }
 
