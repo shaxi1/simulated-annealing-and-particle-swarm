@@ -2,9 +2,9 @@ public class PSO_Helper {
     /* van den Bergh has shown that these values of
     * inertia weight, social and cognitive components
     * provide the best results for a variety of problems */
-    final double INERTIA = 0.729844;
-    final double COGNITIVE = 1.496180;
-    final double SOCIAL = 1.496180;
+    final public double INERTIA = 0.729844;
+    final public double COGNITIVE = 1.496180;
+    final public double SOCIAL = 1.496180;
 
     int dimensionsNumber;
     int particlesNumber;
