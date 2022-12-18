@@ -12,7 +12,6 @@ public class UserInputMathFunction {
 
     }
 
-
     public void getUserInput() throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -22,9 +21,10 @@ public class UserInputMathFunction {
         this.f = new Function(this.functionString);
     }
 
-    /* example "f(3)" */
+    /* example "x = 3" */
     public double getArgumentValue(String argument) {
-        Expression expression = new Expression(argument, f);
+        Argument x = new Argument(argument);
+        Expression expression = new Expression("f(x)", f, x);
 
         return expression.calculate();
     }

@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class PSO {
     /* random vectors */
     double[] r1;
@@ -8,15 +10,21 @@ public class PSO {
     PSO_Particle[] particles;
     PSO_Helper helper;
 
-    final int dimensionsNumber = 30;
-    final int particlesNumber = 30;
-    final int maxIterations = 10000;
+    int dimensionsNumber;
+    int particlesNumber;
+    int maxIterations;
+    Boolean userDefinedFunction;
 
-    public PSO() {
+    public PSO(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction) throws IOException {
+        this.dimensionsNumber = dimensionsNumber;
+        this.particlesNumber = particlesNumber;
+        this.maxIterations = maxIterations;
+        this.userDefinedFunction = userDefinedFunction;
+
         this.particles = new PSO_Particle[particlesNumber];
-        this.helper = new PSO_Helper(dimensionsNumber, particlesNumber, maxIterations);
+        this.helper = new PSO_Helper(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction);
 
-        helper.initalizeParticles(particles);
+        helper.initialize(particles);
 
         this.r1 = new double[dimensionsNumber];
         this.r2 = new double[dimensionsNumber];
@@ -26,9 +34,9 @@ public class PSO {
         for (int i = 0; i < maxIterations; i++) {
             /* calculate fitness for all the particles */
             for (int j = 0; j < particlesNumber; j++) {
-                particles[j].fitness = helper.calculateFitness(particles[j].position);
+                particles[j].fitness = helper.calculateFitness_Particle(particles[j].position);
 
-                if (particles[j].fitness <= helper.calculateFitness(particles[j].personalBest))
+                if (particles[j].fitness <= helper.calculateFitness_Particle(particles[j].personalBest))
                     particles[j].personalBest = particles[j].position.clone();
             }
 
@@ -43,9 +51,9 @@ public class PSO {
             }
         }
 
-        this.bestValue = helper.calculateFitness(best);
+        this.bestValue = helper.calculateFitness_Particle(best);
 
-        //System.out.println(bestValue);
+        System.out.println(bestValue);
         return best;
     }
 

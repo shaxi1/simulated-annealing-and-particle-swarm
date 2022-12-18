@@ -1,3 +1,6 @@
+import java.io.IOException;
+import java.nio.DoubleBuffer;
+
 public class PSO_Helper {
     /* van den Bergh has shown that these values of
     * inertia weight, social and cognitive components
@@ -10,27 +13,49 @@ public class PSO_Helper {
     int particlesNumber;
     int maxIterations;
 
-    public PSO_Helper(int dimensionsNumber, int particlesNumber, int maxIterations) {
+    Boolean userDefinedFunction;
+    UserInputMathFunction userFunction;
+    final double userRandomRange = 5;
+
+    /* more complex test functions */
+    final int complexFunctionIdx = 0; /* set idx of wanted function and userDefinedFunction to false */
+    final double rastriginRange = 5.12; /* Rastrigin function index = 0 */
+
+    public PSO_Helper(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction) {
         this.dimensionsNumber = dimensionsNumber;
         this.particlesNumber = particlesNumber;
         this.maxIterations = maxIterations;
+
+        this.userDefinedFunction = userDefinedFunction;
+        if (userDefinedFunction)
+            userFunction = new UserInputMathFunction();
     }
 
-    public void initalizeParticles(PSO_Particle[] particles) {
+    public void initialize(PSO_Particle[] particles) throws IOException {
+        if (userDefinedFunction)
+            userFunction.getUserInput();
+
         for (int i = 0; i < particles.length; i++) {
             double[] positions = new double[dimensionsNumber];
             double[] velocities = new double [dimensionsNumber];
 
-            // TODO: For each dimension of the particle assign a random x value [-5.12,5.12] and velocity=0
+            // For each particle assign a random x value and velocity = 0
             for (int j = 0; j < dimensionsNumber; j++) {
-                // TODO: setInitialPositions
-                positions[j] = ((Math.random() * ((5.12-(-5.12)))) - 5.12);
+                positions[j] = generateRandomPosition(complexFunctionIdx);
                 velocities[j] = 0;
             }
 
             particles[i] = new PSO_Particle(positions, velocities);
             particles[i].personalBest = particles[i].position.clone();
         }
+    }
+
+    private double generateRandomPosition(int complexFunctionIdx) {
+        if (!this.userDefinedFunction) {
+            if (complexFunctionIdx == 0)
+                return ((Math.random() * ((rastriginRange - (-rastriginRange)))) - rastriginRange);
+        }
+        return (( Math.random() * ( ( userRandomRange-(-userRandomRange) ) )) - userRandomRange);
     }
 
     /* vᵢ(t + 1) = INERTIA*vᵢ(t) + COGNITIVE*r1(y(t) − xᵢ(t)) + SOCIAL*r2(z(t) − xᵢ(t)) */
@@ -75,10 +100,10 @@ public class PSO_Helper {
     /* find the best fitting particle from the whole set of particles */
     public double[] findBest(PSO_Particle[] particles) {
         double[] best = particles[0].personalBest;
-        double bestFitness = calculateFitness(particles[0].personalBest);
+        double bestFitness = calculateFitness_Particle(particles[0].personalBest);
         for(int i = 1; i < particlesNumber; i++) {
-            if (calculateFitness(particles[i].personalBest) <= bestFitness) {
-                bestFitness = calculateFitness(particles[i].personalBest);
+            if (calculateFitness_Particle(particles[i].personalBest) <= bestFitness) {
+                bestFitness = calculateFitness_Particle(particles[i].personalBest);
                 best = particles[i].personalBest;
             }
         }
@@ -87,14 +112,25 @@ public class PSO_Helper {
     }
 
     /* calculate fitness based on a given test function */
-    public double calculateFitness(double[] positions) {
-        double fitness = 0;
-        for (int i = 0; i < dimensionsNumber; i++) {
-            // TODO: USERINPUTFUNCTION
-            fitness = fitness + (Math.pow(positions[i],2)-(10*Math.cos(2*Math.PI*positions[i])));
+    public double calculateFitness_Particle(double[] positions) {
+        return calculateFitness(complexFunctionIdx, positions);
+    }
+
+    private double calculateFitness(int complexFunctionIdx, double[] positions) {
+        if (!this.userDefinedFunction) {
+            if (complexFunctionIdx == 0) {
+                double fitness = 0;
+                for (int i = 0; i < dimensionsNumber; i++) {
+                    fitness = fitness + (Math.pow(positions[i], 2) - (10*Math.cos(2*Math.PI*positions[i])));
+                }
+
+                fitness = fitness + (10 * dimensionsNumber);
+                return fitness;
+            }
         }
 
-        fitness = fitness + (10 * dimensionsNumber);
-        return fitness;
+        return userFunction.getArgumentValue("x = " + positions[0]);
     }
+
+
 }
