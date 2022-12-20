@@ -99,11 +99,17 @@ public class PSO_Helper {
     }
 
     /* find the best fitting particle from the whole set of particles */
-    public double[] findBest(PSO_Particle[] particles) {
+    public double[] findBest(PSO_Particle[] particles, Min_Max which) {
         double[] best = particles[0].personalBest;
         double bestFitness = calculateFitness_Particle(particles[0].personalBest);
         for(int i = 1; i < particlesNumber; i++) {
-            if (calculateFitness_Particle(particles[i].personalBest) <= bestFitness) {
+            Boolean set = false;
+            if (calculateFitness_Particle(particles[i].personalBest) <= bestFitness && which == Min_Max.MIN)
+                set = true;
+            else if (calculateFitness_Particle(particles[i].personalBest) >= bestFitness && which == Min_Max.MAX)
+                set = true;
+
+            if (set) {
                 bestFitness = calculateFitness_Particle(particles[i].personalBest);
                 best = particles[i].personalBest;
             }

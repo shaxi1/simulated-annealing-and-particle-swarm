@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.util.Random;
 
 public class SA_Helper {
     int dimensionsNumber;
@@ -55,5 +56,19 @@ public class SA_Helper {
         }
 
         return userFunction.getArgumentValue("x = " + positions[0]);
+    }
+
+    public Boolean acceptSolution(double cost, Random random, Min_Max which, double currentTemp) {
+        if (cost >= 0 && which == Min_Max.MIN)
+            return true;
+        else if (random.nextDouble() < Math.exp(-cost / currentTemp))
+            return true;
+
+        if (cost <= 0 && which == Min_Max.MAX)
+            return true;
+        else if (random.nextDouble() < Math.exp(-cost / currentTemp))
+            return true;
+
+        return false;
     }
 }

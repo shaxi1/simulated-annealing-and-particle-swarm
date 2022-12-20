@@ -8,18 +8,20 @@ public class SA {
     double coolingRate;
 
     Boolean userDefinedFunction;
+    Min_Max which;
     int complexFunctionIdx;
 
     SA_Helper helper;
     SA_Point bestPoint;
 
-    public SA(int dimensionsNumber, int maxIterations, Boolean userDefinedFunction, double startingTemp, double coolingRate, int complexFunctionIdx) throws IOException {
+    public SA(int dimensionsNumber, int maxIterations, Boolean userDefinedFunction, double startingTemp, double coolingRate, int complexFunctionIdx, Min_Max which) throws IOException {
         this.dimensionsNumber = dimensionsNumber;
         this.maxIterations = maxIterations;
         this.userDefinedFunction = userDefinedFunction;
         this.complexFunctionIdx = complexFunctionIdx;
         this.currentTemp = startingTemp;
         this.coolingRate = coolingRate;
+        this.which = which;
 
         this.helper = new SA_Helper(dimensionsNumber, maxIterations, userDefinedFunction, complexFunctionIdx);
     }
@@ -35,12 +37,8 @@ public class SA {
             /* calculate the cost between two solutions */
             double cost = bestPoint.score - testPoint.score;
 
-            Boolean acceptNewSolution = false;
             Random random = new Random();
-            if (cost >= 0)
-                acceptNewSolution = true;
-            else if (random.nextDouble() < Math.exp(-cost / currentTemp))
-                acceptNewSolution = true;
+            Boolean acceptNewSolution = helper.acceptSolution(cost, random, which, this.currentTemp);
 
             if (acceptNewSolution) {
                 bestPoint.score = testPoint.score;

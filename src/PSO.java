@@ -13,13 +13,15 @@ public class PSO {
     int dimensionsNumber;
     int particlesNumber;
     int maxIterations;
+    Min_Max which;
     Boolean userDefinedFunction;
 
-    public PSO(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction) throws IOException {
+    public PSO(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction, Min_Max which) throws IOException {
         this.dimensionsNumber = dimensionsNumber;
         this.particlesNumber = particlesNumber;
         this.maxIterations = maxIterations;
         this.userDefinedFunction = userDefinedFunction;
+        this.which = which;
 
         this.particles = new PSO_Particle[particlesNumber];
         this.helper = new PSO_Helper(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction);
@@ -36,11 +38,13 @@ public class PSO {
             for (int j = 0; j < particlesNumber; j++) {
                 particles[j].fitness = helper.calculateFitness_Particle(particles[j].position);
 
-                if (particles[j].fitness <= helper.calculateFitness_Particle(particles[j].personalBest))
+                if (particles[j].fitness <= helper.calculateFitness_Particle(particles[j].personalBest) && which == Min_Max.MIN)
+                    particles[j].personalBest = particles[j].position.clone();
+                else if (particles[j].fitness >= helper.calculateFitness_Particle(particles[j].personalBest) && which == Min_Max.MAX)
                     particles[j].personalBest = particles[j].position.clone();
             }
 
-            best = helper.findBest(particles);
+            best = helper.findBest(particles, which);
 
             /* get new random vectors */
             generateRandomVectors();
