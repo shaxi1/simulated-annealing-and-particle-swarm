@@ -1,3 +1,5 @@
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -71,5 +73,10 @@ public class SA_Helper {
             return true;
 
         return false;
+    }
+
+    public void plotIteration(double[] point, int iteration) throws PythonExecutionException, IOException {
+        CreatePlot createPlot = new CreatePlot(userFunction, userRandomRange);
+        createPlot.plotSA_Point("SA", point, iteration);
     }
 }

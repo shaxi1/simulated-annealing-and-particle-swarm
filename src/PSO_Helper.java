@@ -18,13 +18,14 @@ public class PSO_Helper {
     final double userRandomRange = 50;
 
     /* more complex test functions */
-    final int complexFunctionIdx = 0; /* set idx of wanted function and userDefinedFunction to false */
+    int complexFunctionIdx; /* set idx of wanted function and userDefinedFunction to false */
     final double rastriginRange = 5.12; /* Rastrigin function index = 0 */
 
-    public PSO_Helper(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction) {
+    public PSO_Helper(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction, int complexFunctionIdx) {
         this.dimensionsNumber = dimensionsNumber;
         this.particlesNumber = particlesNumber;
         this.maxIterations = maxIterations;
+        this.complexFunctionIdx = complexFunctionIdx;
 
         this.userDefinedFunction = userDefinedFunction;
         if (userDefinedFunction)

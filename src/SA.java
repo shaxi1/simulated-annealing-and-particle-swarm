@@ -1,3 +1,5 @@
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+
 import java.io.IOException;
 import java.util.Random;
 
@@ -26,7 +28,7 @@ public class SA {
         this.helper = new SA_Helper(dimensionsNumber, maxIterations, userDefinedFunction, complexFunctionIdx);
     }
 
-    public double[] runSA() {
+    public double[] runSA() throws PythonExecutionException, IOException {
         double[] temp = helper.generateRandomPoint();
         bestPoint = new SA_Point(temp, helper.calculateScore(complexFunctionIdx, temp));
 
@@ -44,6 +46,9 @@ public class SA {
             if (acceptNewSolution) {
                 bestPoint.score = testPoint.score;
                 bestPoint.position = testPoint.position;
+
+                if (userDefinedFunction)
+                    helper.plotIteration(bestPoint.position, i);
             }
 
             currentTemp *= coolingRate;

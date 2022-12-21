@@ -14,17 +14,20 @@ public class PSO {
     int particlesNumber;
     int maxIterations;
     Min_Max which;
+    int complexFunctionIdx;
     Boolean userDefinedFunction;
 
-    public PSO(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction, Min_Max which) throws IOException {
+    public PSO(int dimensionsNumber, int particlesNumber, int maxIterations,
+               Boolean userDefinedFunction, int complexFunctionIdx, Min_Max which) throws IOException {
         this.dimensionsNumber = dimensionsNumber;
         this.particlesNumber = particlesNumber;
         this.maxIterations = maxIterations;
         this.userDefinedFunction = userDefinedFunction;
+        this.complexFunctionIdx = complexFunctionIdx;
         this.which = which;
 
         this.particles = new PSO_Particle[particlesNumber];
-        this.helper = new PSO_Helper(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction);
+        this.helper = new PSO_Helper(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction, complexFunctionIdx);
 
         helper.initialize(particles);
 
