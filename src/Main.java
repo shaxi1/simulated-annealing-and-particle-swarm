@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         final int dimensionsNumber = 1;
-        final int maxIterations = 100;
+        final int maxIterations = 40;
         final Boolean userDefinedFunction = true;
         final Min_Max which = Min_Max.MAX;
 

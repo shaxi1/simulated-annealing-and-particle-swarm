@@ -14,7 +14,8 @@ public class CreatePlot {
     Plot plt;
 
     final int plotMinusAndPlusArgs = 2;
-    final int stretchGraph = 10;
+    int stretchGraph = 10;
+    final int multiplier = 20;
     final double offset = 0.1;
 
     public CreatePlot(UserInputMathFunction function, double bounds) {
@@ -27,7 +28,7 @@ public class CreatePlot {
 
     private void generatePointsToPlot() {
         int boundsInt = (int)this.bounds;
-        boundsInt *= stretchGraph;
+        boundsInt *= this.stretchGraph;
 
         this.x = NumpyUtils.linspace(-boundsInt, boundsInt, boundsInt*plotMinusAndPlusArgs);
         for (int i = -boundsInt; i < boundsInt; i+=1)
@@ -46,6 +47,9 @@ public class CreatePlot {
     }
 
     public void plotPSO_Particles(String filenamePrefix, PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
+        /* stretch graph every 5th iteration */
+        if (iteration%5 == 0)
+            this.stretchGraph += multiplier;
         plotFunction(filenamePrefix);
 
         for (PSO_Particle particle : particles) {
