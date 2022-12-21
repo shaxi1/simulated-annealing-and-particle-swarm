@@ -143,7 +143,7 @@ public class PSO_Helper {
 
     public void plotDrawIteration(PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
         CreatePlot createPlot = new CreatePlot(userFunction, userRandomRange);
-        createPlot.plotPSO_Particles("SA", particles, iteration);
+        createPlot.plotPSO_Particles("PSO", particles, iteration);
     }
 
 }

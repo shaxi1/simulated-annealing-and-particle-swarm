@@ -14,8 +14,9 @@ public class CreatePlot {
     Plot plt;
 
     final int plotMinusAndPlusArgs = 2;
-    int stretchGraph = 10;
-    final int multiplier = 20;
+    int stretchGraph = 1;
+    final int SA_stretch = 1;
+    final int PSO_stretch = 16;
     final double offset = 0.1;
 
     public CreatePlot(UserInputMathFunction function, double bounds) {
@@ -47,9 +48,7 @@ public class CreatePlot {
     }
 
     public void plotPSO_Particles(String filenamePrefix, PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
-        /* stretch graph every 5th iteration */
-        if (iteration%5 == 0)
-            this.stretchGraph += multiplier;
+        this.stretchGraph = PSO_stretch;
         plotFunction(filenamePrefix);
 
         for (PSO_Particle particle : particles) {
@@ -72,7 +71,7 @@ public class CreatePlot {
             this.plt.plot()
                     .add(particlesX, particlesY)
                     .color("red")
-                    .linewidth(3);
+                    .linewidth(4);
         }
 
         savePlot(filenamePrefix, iteration);
@@ -94,6 +93,7 @@ public class CreatePlot {
         pointY.add(evaluation + offset);
         pointY.add(evaluation - offset);
 
+        this.stretchGraph = SA_stretch;
         plotFunction(filenamePrefix);
 
         this.plt.plot()

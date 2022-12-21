@@ -5,7 +5,8 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) {
         final int dimensionsNumber = 1;
-        final int maxIterations = 40;
+        final int PSO_maxIterations = 40;
+        final int SA_maxIterations = 100;
         final Boolean userDefinedFunction = true;
         final Min_Max which = Min_Max.MAX;
 
@@ -19,10 +20,10 @@ public class Main {
         // TODO: attach console to docker, bounds should be fine, possibly add two argument functions
 
         try {
-            PSO pso = new PSO(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction, complexFunctionIdx, which);
-            pso.runPSO();
-//            SA sa = new SA(dimensionsNumber, maxIterations, userDefinedFunction, startingTemp, coolingRate, complexFunctionIdx, which);
-//            sa.runSA();
+//            PSO pso = new PSO(dimensionsNumber, particlesNumber, PSO_maxIterations, userDefinedFunction, complexFunctionIdx, which);
+//            pso.runPSO();
+            SA sa = new SA(dimensionsNumber, SA_maxIterations, userDefinedFunction, startingTemp, coolingRate, complexFunctionIdx, which);
+            sa.runSA();
         } catch (IOException | PythonExecutionException e) {
             e.printStackTrace();
         }
