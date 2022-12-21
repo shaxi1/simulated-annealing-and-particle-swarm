@@ -19,10 +19,10 @@ public class Main {
         // TODO: attach console to docker, bounds should be fine, possibly add two argument functions
 
         try {
-//            PSO pso = new PSO(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction, complexFunctionIdx, which);
-//            pso.runPSO();
-            SA sa = new SA(dimensionsNumber, maxIterations, userDefinedFunction, startingTemp, coolingRate, complexFunctionIdx, which);
-            sa.runSA();
+            PSO pso = new PSO(dimensionsNumber, particlesNumber, maxIterations, userDefinedFunction, complexFunctionIdx, which);
+            pso.runPSO();
+//            SA sa = new SA(dimensionsNumber, maxIterations, userDefinedFunction, startingTemp, coolingRate, complexFunctionIdx, which);
+//            sa.runSA();
         } catch (IOException | PythonExecutionException e) {
             e.printStackTrace();
         }

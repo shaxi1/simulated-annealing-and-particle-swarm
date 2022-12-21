@@ -4,7 +4,6 @@ import com.github.sh0nk.matplotlib4j.PythonExecutionException;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class CreatePlot {
@@ -15,6 +14,7 @@ public class CreatePlot {
     Plot plt;
 
     final int plotMinusAndPlusArgs = 2;
+    final int stretchGraph = 10;
     final double offset = 0.1;
 
     public CreatePlot(UserInputMathFunction function, double bounds) {
@@ -27,6 +27,7 @@ public class CreatePlot {
 
     private void generatePointsToPlot() {
         int boundsInt = (int)this.bounds;
+        boundsInt *= stretchGraph;
 
         this.x = NumpyUtils.linspace(-boundsInt, boundsInt, boundsInt*plotMinusAndPlusArgs);
         for (int i = -boundsInt; i < boundsInt; i+=1)
@@ -44,7 +45,7 @@ public class CreatePlot {
                 .linestyle("-");
     }
 
-    public void plotPSA_Particles(String filenamePrefix, PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
+    public void plotPSO_Particles(String filenamePrefix, PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
         plotFunction(filenamePrefix);
 
         for (PSO_Particle particle : particles) {
@@ -53,7 +54,7 @@ public class CreatePlot {
 
             double particleX = particle.position[0];
             particlesX.add(particleX);
-            double evaluation = function.getArgumentValue("x = " + particlesX);
+            double evaluation = function.getArgumentValue("x = " + particleX);
             particlesY.add(evaluation);
 
             /* matplotlib4j does not seem to be able to plot single points
@@ -65,7 +66,9 @@ public class CreatePlot {
             particlesY.add(evaluation - offset);
 
             this.plt.plot()
-                    .add(particlesX, particlesY);
+                    .add(particlesX, particlesY)
+                    .color("red")
+                    .linewidth(3);
         }
 
         savePlot(filenamePrefix, iteration);

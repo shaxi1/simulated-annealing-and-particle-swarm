@@ -1,5 +1,6 @@
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+
 import java.io.IOException;
-import java.nio.DoubleBuffer;
 
 public class PSO_Helper {
     /* van den Bergh has shown that these values of
@@ -140,5 +141,9 @@ public class PSO_Helper {
         return userFunction.getArgumentValue("x = " + positions[0]);
     }
 
+    public void plotDrawIteration(PSO_Particle[] particles, int iteration) throws PythonExecutionException, IOException {
+        CreatePlot createPlot = new CreatePlot(userFunction, userRandomRange);
+        createPlot.plotPSO_Particles("SA", particles, iteration);
+    }
 
 }

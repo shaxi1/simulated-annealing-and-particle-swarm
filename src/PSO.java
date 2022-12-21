@@ -1,3 +1,5 @@
+import com.github.sh0nk.matplotlib4j.PythonExecutionException;
+
 import java.io.IOException;
 
 public class PSO {
@@ -35,7 +37,7 @@ public class PSO {
         this.r2 = new double[dimensionsNumber];
     }
 
-    public double[] runPSO() {
+    public double[] runPSO() throws PythonExecutionException, IOException {
         System.out.println("Processing...");
 
         for (int i = 0; i < maxIterations; i++) {
@@ -58,6 +60,8 @@ public class PSO {
                 helper.updateVelocity(particles[j], best, r1, r2);
                 helper.updatePosition(particles[j]);
             }
+
+            helper.plotDrawIteration(particles, i);
         }
 
         this.bestValue = helper.calculateFitness_Particle(best);

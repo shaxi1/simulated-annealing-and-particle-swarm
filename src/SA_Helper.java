@@ -75,7 +75,7 @@ public class SA_Helper {
         return false;
     }
 
-    public void plotIteration(double[] point, int iteration) throws PythonExecutionException, IOException {
+    public void plotDrawIteration(double[] point, int iteration) throws PythonExecutionException, IOException {
         CreatePlot createPlot = new CreatePlot(userFunction, userRandomRange);
         createPlot.plotSA_Point("SA", point, iteration);
     }

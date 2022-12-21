@@ -48,7 +48,7 @@ public class SA {
                 bestPoint.position = testPoint.position;
 
                 if (userDefinedFunction)
-                    helper.plotIteration(bestPoint.position, i);
+                    helper.plotDrawIteration(bestPoint.position, i);
             }
 
             currentTemp *= coolingRate;
