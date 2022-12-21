@@ -30,6 +30,7 @@ public class SA {
         double[] temp = helper.generateRandomPoint();
         bestPoint = new SA_Point(temp, helper.calculateScore(complexFunctionIdx, temp));
 
+        System.out.println("Processing...");
         for (int i = 0; i < maxIterations; i++) {
             temp = helper.generateRandomPoint();
             SA_Point testPoint = new SA_Point(temp, helper.calculateScore(complexFunctionIdx, temp));

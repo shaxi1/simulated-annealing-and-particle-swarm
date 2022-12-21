@@ -33,6 +33,8 @@ public class PSO {
     }
 
     public double[] runPSO() {
+        System.out.println("Processing...");
+
         for (int i = 0; i < maxIterations; i++) {
             /* calculate fitness for all the particles */
             for (int j = 0; j < particlesNumber; j++) {

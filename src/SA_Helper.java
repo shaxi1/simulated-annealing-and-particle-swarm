@@ -7,7 +7,7 @@ public class SA_Helper {
 
     Boolean userDefinedFunction;
     UserInputMathFunction userFunction;
-    final double userRandomRange = 5;
+    final double userRandomRange = 50;
 
     /* more complex test functions */
     int complexFunctionIdx; /* set idx of wanted function and userDefinedFunction to false */
@@ -53,6 +53,7 @@ public class SA_Helper {
                 fitness = fitness + (10 * dimensionsNumber);
                 return fitness;
             }
+            //if (complexFunctionIdx == 1)
         }
 
         return userFunction.getArgumentValue("x = " + positions[0]);

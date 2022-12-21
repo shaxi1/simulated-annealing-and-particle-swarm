@@ -15,7 +15,7 @@ public class PSO_Helper {
 
     Boolean userDefinedFunction;
     UserInputMathFunction userFunction;
-    final double userRandomRange = 5;
+    final double userRandomRange = 50;
 
     /* more complex test functions */
     final int complexFunctionIdx = 0; /* set idx of wanted function and userDefinedFunction to false */
