@@ -1,5 +1,4 @@
 public class SA_Point {
-    // TODO: array of arrays? if function has more than one argument
     double[] position;
     double score;
 

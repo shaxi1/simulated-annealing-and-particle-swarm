@@ -21,6 +21,8 @@ public class PSO_Helper {
     /* more complex test functions */
     int complexFunctionIdx; /* set idx of wanted function and userDefinedFunction to false */
     final double rastriginRange = 5.12; /* Rastrigin function index = 0 */
+    final double rosenbrockRange = 10000;
+    final double sphereRange = 10000;
 
     public PSO_Helper(int dimensionsNumber, int particlesNumber, int maxIterations, Boolean userDefinedFunction, int complexFunctionIdx) {
         this.dimensionsNumber = dimensionsNumber;
@@ -56,6 +58,10 @@ public class PSO_Helper {
         if (!this.userDefinedFunction) {
             if (complexFunctionIdx == 0)
                 return ((Math.random() * ((rastriginRange - (-rastriginRange)))) - rastriginRange);
+            else if (complexFunctionIdx == 1)
+                return ((Math.random() * ((rosenbrockRange - (-rosenbrockRange)))) - rosenbrockRange);
+            else if (complexFunctionIdx == 2)
+                return ((Math.random() * ((sphereRange - (-sphereRange)))) - sphereRange);
         }
 
         return (( Math.random() * ( ( userRandomRange-(-userRandomRange) ) )) - userRandomRange);
@@ -134,6 +140,22 @@ public class PSO_Helper {
                 }
 
                 fitness = fitness + (10 * dimensionsNumber);
+                return fitness;
+            }
+            else if (complexFunctionIdx == 1) {
+                double fitness = 0;
+                for (int i = 0; i < dimensionsNumber - 1; i++) {
+                    fitness = fitness + (100 * (positions[i+1] - Math.pow(positions[i], 2)) + Math.pow((1 - positions[i]), 2) );
+                }
+
+                return fitness;
+            }
+            else if (complexFunctionIdx == 2) {
+                double fitness = 0;
+                for (int i = 0; i < dimensionsNumber; i++) {
+                    fitness = fitness + (Math.pow(positions[i], 2));
+                }
+
                 return fitness;
             }
         }

@@ -61,7 +61,8 @@ public class PSO {
                 helper.updatePosition(particles[j]);
             }
 
-            helper.plotDrawIteration(particles, i);
+            if (userDefinedFunction)
+                helper.plotDrawIteration(particles, i);
         }
 
         this.bestValue = helper.calculateFitness_Particle(best);
